@@ -1,17 +1,15 @@
-/* إعدادات عامة وألوان النظام الداكن مع لون بنفسجي عصري */
 :root {
-    --bg-color: #2e1065; /* لون خلفية بنفسجي داكن وعصري */
+    --bg-color: #2e1065; 
     --text-color: #f8fafc;
     --glass-bg: rgba(255, 255, 255, 0.05);
     --glass-border: rgba(255, 255, 255, 0.1);
-    --primary-color: #a855f7; /* درجة بنفسجي فاتحة ومضيئة للتفاصيل */
+    --primary-color: #a855f7; 
     --hover-color: #9333ea;
     
-    /* ألوان الفئات */
-    --c-1: #10b981; /* براعم */
-    --c-2: #f59e0b; /* أشبال */
-    --c-3: #ef4444; /* ناشئين */
-    --c-4: #8b5cf6; /* شباب */
+    --c-1: #10b981; 
+    --c-2: #f59e0b; 
+    --c-3: #ef4444; 
+    --c-4: #8b5cf6; 
 }
 
 * {
@@ -26,12 +24,10 @@ body {
     color: var(--text-color);
     min-height: 100vh;
     padding: 20px;
-    /* تدرج لوني يعزز الطابع البنفسجي الزجاجي */
     background-image: radial-gradient(circle at top right, #4c1d95, transparent),
                       radial-gradient(circle at bottom left, #2e1065, transparent);
 }
 
-/* تأثير الزجاج (Glassmorphism) */
 .glass-panel {
     background: var(--glass-bg);
     backdrop-filter: blur(12px);
@@ -41,7 +37,6 @@ body {
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
 }
 
-/* شريط التبويبات */
 nav {
     display: flex;
     justify-content: center;
@@ -66,7 +61,6 @@ nav {
     box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.05);
 }
 
-/* محتوى التبويبات */
 .tab-content {
     display: none;
     animation: fadeIn 0.4s ease-in-out;
@@ -80,7 +74,6 @@ nav {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* كروت الفئات العمرية */
 .cards-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -110,7 +103,6 @@ nav {
 .c-3 { border-bottom: 4px solid var(--c-3); }
 .c-4 { border-bottom: 4px solid var(--c-4); }
 
-/* الأزرار والتنسيقات المشتركة */
 .section-header {
     display: flex;
     justify-content: space-between;
@@ -145,7 +137,6 @@ nav {
     min-height: 150px;
 }
 
-/* شبكة المتجر والمنتجات */
 .grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -163,12 +154,6 @@ nav {
     position: relative;
 }
 
-.item-card i {
-    font-size: 2rem;
-    color: var(--primary-color);
-}
-
-/* أزرار الإجراءات داخل الكروت */
 .card-actions {
     display: flex;
     justify-content: center;
@@ -190,7 +175,6 @@ nav {
 .delete-btn { color: #ef4444; }
 .delete-btn:hover { color: #dc2626; }
 
-/* تبويبات المتجر الداخلية */
 .store-tabs {
     display: flex;
     gap: 10px;
@@ -214,7 +198,6 @@ nav {
     animation: fadeIn 0.4s ease-in-out;
 }
 
-/* أنميشن الحقول */
 .add-form-anim {
     animation: slideDown 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     transform-origin: top;
@@ -225,7 +208,6 @@ nav {
     100% { opacity: 1; transform: scaleY(1); }
 }
 
-/* زر النقصان الكبير في المخزن */
 .large-minus-btn {
     background-color: #ef4444;
     color: white;
@@ -251,7 +233,6 @@ nav {
     transform: scale(0.9);
 }
 
-/* تنسيق عناصر القوائم (المبيعات والمخزن) */
 .list-item {
     display: flex;
     justify-content: space-between;
@@ -267,7 +248,6 @@ nav {
     border-bottom: none;
 }
 
-/* تصميم النوافذ المنبثقة (Modals) */
 .modal {
     display: none;
     position: fixed;
@@ -308,7 +288,6 @@ nav {
     color: white;
 }
 
-/* الحقول (Inputs) بتأثير زجاجي */
 .form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -342,7 +321,6 @@ textarea.glass-input {
     resize: none;
 }
 
-/* تعديل للهواتف */
 @media (max-width: 600px) {
     .form-grid {
         grid-template-columns: 1fr;
