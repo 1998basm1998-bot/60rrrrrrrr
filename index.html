@@ -77,32 +77,30 @@
             </div>
 
             <div id="store-sales" class="store-sub-tab" style="display: none;">
-                <div class="section-header">
-                    <h2>نظام البيع</h2>
+                <div class="store-tabs" style="margin-top: 20px;">
                     <button class="primary-btn" onclick="toggleElement('newSaleForm')">
                         <i class="fa-solid fa-plus"></i>
                     </button>
                 </div>
 
                 <div id="newSaleForm" class="glass-panel add-form-anim" style="display: none; margin-bottom: 20px; padding: 20px;">
-                    <input type="text" id="salePlayerName" placeholder="اسم اللاعب" class="glass-input" style="width: 100%; margin-bottom: 15px;">
+                    <input type="text" id="salePlayerName" placeholder="اسم الاعب" class="glass-input" style="width: 100%; margin-bottom: 15px;">
                     
                     <div style="display: flex; gap: 10px; margin-bottom: 15px;">
-                        <input type="text" id="saleSearchInput" placeholder="ابحث عن مادة..." class="glass-input" onkeyup="searchProductForSale()" style="flex: 1;">
+                        <input type="text" id="saleSearchInput" placeholder="الماده" class="glass-input" onkeyup="searchProductForSale()" style="flex: 1;">
                     </div>
                     
                     <div id="saleSearchResults" style="margin-bottom: 15px;"></div>
                     
                     <div id="currentSaleItems" class="glass-panel" style="padding: 10px; margin-bottom: 15px; min-height: 50px;">
-                        <p style="text-align: center; opacity: 0.5; margin: 0;">لم يتم إضافة مواد للبيع بعد</p>
                     </div>
 
-                    <h3 id="saleTotalAmount" style="text-align: left; color: var(--primary-color); margin-bottom: 15px;">المجموع: 0 د.ع</h3>
-                    <button class="save-btn" onclick="saveSale()">حفظ البيع</button>
+                    <h3 id="saleTotalAmount" style="text-align: left; color: var(--primary-color); margin-bottom: 15px;">المجموع الكلي: 0</h3>
+                    <button class="save-btn" onclick="saveSale()">حفض</button>
                 </div>
 
                 <div id="salesHistoryContainer" class="list-container glass-panel">
-                    <p style="text-align: center; opacity: 0.7;">لا توجد عمليات بيع حالياً.</p>
+                    <p style="text-align: center; opacity: 0.7;">السجلات</p>
                 </div>
             </div>
         </section>
