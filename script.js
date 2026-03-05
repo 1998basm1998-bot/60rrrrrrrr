@@ -177,8 +177,8 @@ function renderCurrentSaleItems() {
     let total = 0;
 
     if (currentSaleItems.length === 0) {
-        container.innerHTML = '<p style="text-align: center; opacity: 0.5; margin: 0;">لم يتم إضافة مواد للبيع بعد</p>';
-        document.getElementById('saleTotalAmount').innerText = 'المجموع: 0 د.ع';
+        container.innerHTML = '';
+        document.getElementById('saleTotalAmount').innerText = 'المجموع الكلي: 0';
         return;
     }
 
@@ -193,7 +193,7 @@ function renderCurrentSaleItems() {
         `;
     });
 
-    document.getElementById('saleTotalAmount').innerText = 'المجموع: ' + formatCurrency(total);
+    document.getElementById('saleTotalAmount').innerText = 'المجموع الكلي: ' + formatCurrency(total);
 }
 
 function removeCurrentSaleItem(index) {
@@ -235,7 +235,7 @@ function renderSalesHistory() {
     container.innerHTML = '';
 
     if (salesHistory.length === 0) {
-        container.innerHTML = '<p style="text-align: center; opacity: 0.7;">لا توجد عمليات بيع حالياً.</p>';
+        container.innerHTML = '<p style="text-align: center; opacity: 0.7;">السجلات</p>';
         return;
     }
 
@@ -244,10 +244,10 @@ function renderSalesHistory() {
         container.innerHTML += `
             <div class="list-item">
                 <div>
-                    <h4>اللاعب: ${sale.player}</h4>
+                    <h4>اسم الاعب: ${sale.player}</h4>
                     <p style="opacity: 0.8; font-size: 0.9em;">التاريخ: ${sale.date}</p>
-                    <p style="opacity: 0.8; font-size: 0.9em;">المواد: ${itemsNames}</p>
-                    <p style="color: var(--primary-color); font-weight: bold; margin-top: 5px;">الإجمالي: ${formatCurrency(sale.total)}</p>
+                    <p style="opacity: 0.8; font-size: 0.9em;">الماده: ${itemsNames}</p>
+                    <p style="color: var(--primary-color); font-weight: bold; margin-top: 5px;">المجموع الكلي: ${formatCurrency(sale.total)}</p>
                 </div>
                 <button class="icon-btn delete-btn" onclick="deleteSale(${sale.id})"><i class="fa-solid fa-trash"></i></button>
             </div>
