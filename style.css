@@ -1,11 +1,11 @@
-/* إعدادات عامة وألوان النظام الداكن */
+/* إعدادات عامة وألوان النظام الداكن مع لون بنفسجي عصري */
 :root {
-    --bg-color: #0f172a; /* لون خلفية داكن وعصري */
+    --bg-color: #2e1065; /* لون خلفية بنفسجي داكن وعصري */
     --text-color: #f8fafc;
     --glass-bg: rgba(255, 255, 255, 0.05);
     --glass-border: rgba(255, 255, 255, 0.1);
-    --primary-color: #3b82f6;
-    --hover-color: #2563eb;
+    --primary-color: #a855f7; /* درجة بنفسجي فاتحة ومضيئة للتفاصيل */
+    --hover-color: #9333ea;
     
     /* ألوان الفئات */
     --c-1: #10b981; /* براعم */
@@ -26,9 +26,9 @@ body {
     color: var(--text-color);
     min-height: 100vh;
     padding: 20px;
-    /* إضافة تدرج لوني خفيف للخلفية لتعزيز تأثير الزجاج */
-    background-image: radial-gradient(circle at top right, #1e293b, transparent),
-                      radial-gradient(circle at bottom left, #0f172a, transparent);
+    /* تدرج لوني يعزز الطابع البنفسجي الزجاجي */
+    background-image: radial-gradient(circle at top right, #4c1d95, transparent),
+                      radial-gradient(circle at bottom left, #2e1065, transparent);
 }
 
 /* تأثير الزجاج (Glassmorphism) */
@@ -145,24 +145,126 @@ nav {
     min-height: 150px;
 }
 
-/* شبكة المتجر */
+/* شبكة المتجر والمنتجات */
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 15px;
     margin-top: 20px;
 }
+
 .item-card {
     padding: 20px;
     text-align: center;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
     font-size: 1.1rem;
+    position: relative;
 }
+
 .item-card i {
     font-size: 2rem;
     color: var(--primary-color);
+}
+
+/* أزرار الإجراءات داخل الكروت */
+.card-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.edit-btn { color: #f59e0b; }
+.edit-btn:hover { color: #d97706; }
+
+.delete-btn { color: #ef4444; }
+.delete-btn:hover { color: #dc2626; }
+
+/* تبويبات المتجر الداخلية */
+.store-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    justify-content: center;
+}
+
+.store-tabs .primary-btn {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.store-tabs .primary-btn.active {
+    background-color: var(--primary-color);
+}
+
+.store-sub-tab {
+    display: none;
+}
+.store-sub-tab.active {
+    display: block;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+/* أنميشن الحقول */
+.add-form-anim {
+    animation: slideDown 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-origin: top;
+}
+
+@keyframes slideDown {
+    0% { opacity: 0; transform: scaleY(0); }
+    100% { opacity: 1; transform: scaleY(1); }
+}
+
+/* زر النقصان الكبير في المخزن */
+.large-minus-btn {
+    background-color: #ef4444;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.2s;
+}
+
+.large-minus-btn:hover {
+    transform: scale(1.15);
+    background-color: #dc2626;
+}
+
+.large-minus-btn:active {
+    transform: scale(0.9);
+}
+
+/* تنسيق عناصر القوائم (المبيعات والمخزن) */
+.list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.list-item:last-child {
+    border-bottom: none;
 }
 
 /* تصميم النوافذ المنبثقة (Modals) */
@@ -247,5 +349,10 @@ textarea.glass-input {
     }
     nav {
         flex-wrap: wrap;
+    }
+    .list-item {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
     }
 }
