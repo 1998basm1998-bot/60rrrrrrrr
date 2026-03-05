@@ -17,6 +17,9 @@
         <div class="tab-btn" onclick="openTab(event, 'store')">
             <i class="fa-solid fa-store"></i> المتجر
         </div>
+        <div class="tab-btn" onclick="openTab(event, 'direct-sales')">
+            <i class="fa-solid fa-cart-shopping"></i> البيع المباشر
+        </div>
         <div class="tab-btn" onclick="openTab(event, 'coaches')">
             <i class="fa-solid fa-user-tie"></i> المدربين
         </div>
@@ -49,59 +52,53 @@
         </section>
 
         <section id="store" class="tab-content">
-            <div class="store-tabs">
-                <button class="primary-btn active" onclick="openStoreTab(event, 'store-products')">المنتجات</button>
-                <button class="primary-btn" onclick="openStoreTab(event, 'store-sales')">البيع</button>
+            <div class="section-header">
+                <h2>المنتجات</h2>
+                <button class="primary-btn" onclick="toggleElement('addProductForm')">
+                    <i class="fa-solid fa-plus"></i> إضافة منتج
+                </button>
+            </div>
+            
+            <div id="addProductForm" class="glass-panel add-form-anim" style="display: none; margin-bottom: 20px; padding: 20px;">
+                <div class="form-grid">
+                    <input type="text" id="prodName" placeholder="اسم المادة" class="glass-input">
+                    <input type="number" id="prodPrice" placeholder="سعر المادة" class="glass-input">
+                    <input type="number" id="prodQty" placeholder="عدد المادة (المخزون)" class="glass-input">
+                </div>
+                <input type="hidden" id="prodEditId">
+                <button class="save-btn" onclick="saveProduct()">حفظ المنتج</button>
             </div>
 
-            <div id="store-products" class="store-sub-tab active">
-                <div class="section-header">
-                    <h2>المنتجات</h2>
-                    <button class="primary-btn" onclick="toggleElement('addProductForm')">
-                        <i class="fa-solid fa-plus"></i> إضافة منتج
-                    </button>
+            <div class="grid-container" id="productsListContainer">
+            </div>
+        </section>
+
+        <section id="direct-sales" class="tab-content">
+            <div class="section-header">
+                <h2>البيع المباشر</h2>
+                <button class="primary-btn" onclick="toggleElement('newSaleForm')">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+
+            <div id="newSaleForm" class="glass-panel add-form-anim" style="display: none; margin-bottom: 20px; padding: 20px;">
+                <input type="text" id="salePlayerName" placeholder="اسم الاعب" class="glass-input" style="width: 100%; margin-bottom: 15px;">
+                
+                <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                    <input type="text" id="saleSearchInput" placeholder="الماده" class="glass-input" onkeyup="searchProductForSale()" style="flex: 1;">
                 </div>
                 
-                <div id="addProductForm" class="glass-panel add-form-anim" style="display: none; margin-bottom: 20px; padding: 20px;">
-                    <div class="form-grid">
-                        <input type="text" id="prodName" placeholder="اسم المادة" class="glass-input">
-                        <input type="number" id="prodPrice" placeholder="سعر المادة" class="glass-input">
-                        <input type="number" id="prodQty" placeholder="عدد المادة (المخزون)" class="glass-input">
-                    </div>
-                    <input type="hidden" id="prodEditId">
-                    <button class="save-btn" onclick="saveProduct()">حفظ المنتج</button>
+                <div id="saleSearchResults" style="margin-bottom: 15px;"></div>
+                
+                <div id="currentSaleItems" class="glass-panel" style="padding: 10px; margin-bottom: 15px; min-height: 50px;">
                 </div>
 
-                <div class="grid-container" id="productsListContainer">
-                </div>
+                <h3 id="saleTotalAmount" style="text-align: left; color: var(--primary-color); margin-bottom: 15px;">المجموع الكلي: 0</h3>
+                <button class="save-btn" onclick="saveSale()">حفض</button>
             </div>
 
-            <div id="store-sales" class="store-sub-tab" style="display: none;">
-                <div class="store-tabs" style="margin-top: 20px;">
-                    <button class="primary-btn" onclick="toggleElement('newSaleForm')">
-                        <i class="fa-solid fa-plus"></i>
-                    </button>
-                </div>
-
-                <div id="newSaleForm" class="glass-panel add-form-anim" style="display: none; margin-bottom: 20px; padding: 20px;">
-                    <input type="text" id="salePlayerName" placeholder="اسم الاعب" class="glass-input" style="width: 100%; margin-bottom: 15px;">
-                    
-                    <div style="display: flex; gap: 10px; margin-bottom: 15px;">
-                        <input type="text" id="saleSearchInput" placeholder="الماده" class="glass-input" onkeyup="searchProductForSale()" style="flex: 1;">
-                    </div>
-                    
-                    <div id="saleSearchResults" style="margin-bottom: 15px;"></div>
-                    
-                    <div id="currentSaleItems" class="glass-panel" style="padding: 10px; margin-bottom: 15px; min-height: 50px;">
-                    </div>
-
-                    <h3 id="saleTotalAmount" style="text-align: left; color: var(--primary-color); margin-bottom: 15px;">المجموع الكلي: 0</h3>
-                    <button class="save-btn" onclick="saveSale()">حفض</button>
-                </div>
-
-                <div id="salesHistoryContainer" class="list-container glass-panel">
-                    <p style="text-align: center; opacity: 0.7;">السجلات</p>
-                </div>
+            <div id="salesHistoryContainer" class="list-container glass-panel">
+                <p style="text-align: center; opacity: 0.7;">السجلات</p>
             </div>
         </section>
 
