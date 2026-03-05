@@ -49,14 +49,61 @@
         </section>
 
         <section id="store" class="tab-content">
-            <h2>المتجر (المواد المتاحة)</h2>
-            <div class="grid-container">
-                <div class="glass-panel item-card"><i class="fa-solid fa-shirt"></i> دريس وشورت</div>
-                <div class="glass-panel item-card"><i class="fa-solid fa-socks"></i> جوراب</div>
-                <div class="glass-panel item-card"><i class="fa-solid fa-person-snowboarding"></i> تراك شتوي</div>
-                <div class="glass-panel item-card"><i class="fa-solid fa-person-running"></i> تراك صيفي</div>
-                <div class="glass-panel item-card"><i class="fa-solid fa-shoe-prints"></i> حذاء</div>
-                <div class="glass-panel item-card"><i class="fa-solid fa-futbol"></i> كرة</div>
+            <div class="store-tabs">
+                <button class="primary-btn active" id="tab-products-btn" onclick="openStoreTab('store-products')">المنتجات</button>
+                <button class="primary-btn" id="tab-sales-btn" onclick="openStoreTab('store-sales')">البيع</button>
+            </div>
+
+            <div id="store-products" class="store-sub-tab active">
+                <div class="section-header">
+                    <h2>المنتجات</h2>
+                    <button class="primary-btn" onclick="toggleElement('addProductForm')">
+                        <i class="fa-solid fa-plus"></i> إضافة منتج
+                    </button>
+                </div>
+                
+                <div id="addProductForm" class="glass-panel add-form-anim" style="display: none; margin-bottom: 20px; padding: 20px;">
+                    <div class="form-grid">
+                        <input type="text" id="prodName" placeholder="اسم المادة" class="glass-input">
+                        <input type="number" id="prodPrice" placeholder="سعر المادة" class="glass-input">
+                        <input type="number" id="prodQty" placeholder="عدد المادة (المخزون)" class="glass-input">
+                    </div>
+                    <input type="hidden" id="prodEditId">
+                    <button class="save-btn" onclick="saveProduct()">حفظ المنتج</button>
+                </div>
+
+                <div class="grid-container" id="productsListContainer">
+                    </div>
+            </div>
+
+            <div id="store-sales" class="store-sub-tab" style="display: none;">
+                <div class="section-header">
+                    <h2>نظام البيع</h2>
+                    <button class="primary-btn" onclick="toggleElement('newSaleForm')">
+                        <i class="fa-solid fa-cart-plus"></i> بيع جديد
+                    </button>
+                </div>
+
+                <div id="newSaleForm" class="glass-panel add-form-anim" style="display: none; margin-bottom: 20px; padding: 20px;">
+                    <input type="text" id="salePlayerName" placeholder="اسم اللاعب" class="glass-input" style="width: 100%; margin-bottom: 15px;">
+                    
+                    <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                        <input type="text" id="saleSearchInput" placeholder="ابحث عن مادة..." class="glass-input" onkeyup="searchProductForSale()" style="flex: 1;">
+                    </div>
+                    
+                    <div id="saleSearchResults" style="margin-bottom: 15px;"></div>
+                    
+                    <div id="currentSaleItems" class="glass-panel" style="padding: 10px; margin-bottom: 15px; min-height: 50px;">
+                        <p style="text-align: center; opacity: 0.5; margin: 0;">لم يتم إضافة مواد للبيع بعد</p>
+                    </div>
+
+                    <h3 id="saleTotalAmount" style="text-align: left; color: var(--primary-color); margin-bottom: 15px;">المجموع: 0 د.ع</h3>
+                    <button class="save-btn" onclick="saveSale()">حفظ البيع</button>
+                </div>
+
+                <div id="salesHistoryContainer" class="list-container glass-panel">
+                    <p style="text-align: center; opacity: 0.7;">لا توجد عمليات بيع حالياً.</p>
+                </div>
             </div>
         </section>
 
@@ -79,7 +126,7 @@
                     <i class="fa-solid fa-plus"></i> إضافة مادة
                 </button>
             </div>
-            <div class="glass-panel list-container">
+            <div id="inventoryListContainer" class="list-container glass-panel">
                 <p style="text-align: center; opacity: 0.7;">المخزن فارغ حالياً.</p>
             </div>
         </section>
@@ -132,10 +179,11 @@
             <span class="close" onclick="closeModal('inventoryModal')">&times;</span>
             <h3>إضافة مادة للمخزن</h3>
             <div class="form-grid">
-                <input type="text" placeholder="اسم المادة" class="glass-input">
-                <input type="number" placeholder="السعر" class="glass-input">
+                <input type="text" id="invName" placeholder="اسم المادة" class="glass-input">
+                <input type="number" id="invQty" placeholder="العدد" class="glass-input">
             </div>
-            <button class="save-btn">حفظ المادة</button>
+            <input type="hidden" id="invEditId">
+            <button class="save-btn" onclick="saveInventoryItem()">حفظ المادة</button>
         </div>
     </div>
 
