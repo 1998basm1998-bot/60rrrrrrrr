@@ -1,5 +1,4 @@
-// دوال التبويبات الرئيسية
-function openTab(tabId) {
+function openTab(event, tabId) {
     let contents = document.querySelectorAll('.tab-content');
     contents.forEach(content => content.classList.remove('active'));
 
@@ -10,14 +9,12 @@ function openTab(tabId) {
     event.currentTarget.classList.add('active');
 }
 
-// إظهار اللاعبين
 function showPlayers(categoryName) {
     const playersArea = document.getElementById('players-list-area');
     playersArea.style.display = 'block';
     document.getElementById('selected-category-title').innerText = 'قائمة اللاعبين - ' + categoryName;
 }
 
-// دوال النوافذ المنبثقة
 function openModal(modalId) {
     document.getElementById(modalId).style.display = 'block';
 }
@@ -35,26 +32,23 @@ window.onclick = function(event) {
     });
 }
 
-// دالة تنسيق العملة بالدينار العراقي (فواصل الآلاف)
 function formatCurrency(amount) {
     return Number(amount).toLocaleString('en-US') + ' د.ع';
 }
 
-// تبديل إظهار وإخفاء الحقول (للأنميشن)
 function toggleElement(elementId) {
     const el = document.getElementById(elementId);
-    if (el.style.display === "none") {
+    if (el.style.display === "none" || el.style.display === "") {
         el.style.display = "block";
     } else {
         el.style.display = "none";
     }
 }
 
-// =================== قسم المتجر والمنتجات ===================
 let products = [];
 let productIdCounter = 1;
 
-function openStoreTab(subTabId) {
+function openStoreTab(event, subTabId) {
     document.querySelectorAll('.store-sub-tab').forEach(tab => tab.classList.remove('active'));
     document.querySelectorAll('.store-tabs .primary-btn').forEach(btn => btn.classList.remove('active'));
     
@@ -71,14 +65,12 @@ function saveProduct() {
     if (!name || !price || !qty) return alert('يرجى ملء جميع الحقول');
 
     if (editId) {
-        // تعديل منتج موجود
         const prod = products.find(p => p.id == editId);
         prod.name = name;
         prod.price = Number(price);
         prod.qty = Number(qty);
         document.getElementById('prodEditId').value = '';
     } else {
-        // إضافة منتج جديد
         products.push({
             id: productIdCounter++,
             name: name,
@@ -87,7 +79,6 @@ function saveProduct() {
         });
     }
 
-    // تفريغ الحقول وإخفاء الفورم
     document.getElementById('prodName').value = '';
     document.getElementById('prodPrice').value = '';
     document.getElementById('prodQty').value = '';
@@ -136,7 +127,6 @@ function renderProducts() {
     });
 }
 
-// =================== قسم نظام البيع ===================
 let currentSaleItems = [];
 let salesHistory = [];
 
@@ -147,7 +137,6 @@ function searchProductForSale() {
 
     if (searchTerm.length === 0) return;
 
-    // بحث وفهرسة من أول حرف
     const matchedProducts = products.filter(p => p.name.startsWith(searchTerm));
 
     matchedProducts.forEach(prod => {
@@ -219,7 +208,6 @@ function saveSale() {
 
     let totalAmount = currentSaleItems.reduce((sum, item) => sum + item.price, 0);
 
-    // إنقاص المخزون للمواد المباعة
     currentSaleItems.forEach(saleItem => {
         const prod = products.find(p => p.id == saleItem.id);
         if (prod) prod.qty -= 1;
@@ -233,14 +221,13 @@ function saveSale() {
         date: new Date().toLocaleDateString()
     });
 
-    // تفريغ وتحديث
     currentSaleItems = [];
     document.getElementById('salePlayerName').value = '';
     document.getElementById('newSaleForm').style.display = 'none';
     
     renderCurrentSaleItems();
     renderSalesHistory();
-    renderProducts(); // لتحديث أرقام المخزون في صفحة المنتجات
+    renderProducts(); 
 }
 
 function renderSalesHistory() {
@@ -272,8 +259,6 @@ function deleteSale(id) {
     renderSalesHistory();
 }
 
-
-// =================== قسم المخزن (مستقل - بدون سعر - مع زر النقصان) ===================
 let inventoryItems = [];
 let invIdCounter = 1;
 
