@@ -245,6 +245,7 @@ function renderSalesHistory() {
             <div class="list-item">
                 <div>
                     <h4>اللاعب: ${sale.player}</h4>
+                    <p style="opacity: 0.8; font-size: 0.9em;">التاريخ: ${sale.date}</p>
                     <p style="opacity: 0.8; font-size: 0.9em;">المواد: ${itemsNames}</p>
                     <p style="color: var(--primary-color); font-weight: bold; margin-top: 5px;">الإجمالي: ${formatCurrency(sale.total)}</p>
                 </div>
