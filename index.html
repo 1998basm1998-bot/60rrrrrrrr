@@ -11,16 +11,16 @@
 <body>
 
     <nav class="glass-panel">
-        <div class="tab-btn active" onclick="openTab('players')">
+        <div class="tab-btn active" onclick="openTab(event, 'players')">
             <i class="fa-solid fa-users"></i> الفئات العمرية
         </div>
-        <div class="tab-btn" onclick="openTab('store')">
+        <div class="tab-btn" onclick="openTab(event, 'store')">
             <i class="fa-solid fa-store"></i> المتجر
         </div>
-        <div class="tab-btn" onclick="openTab('coaches')">
+        <div class="tab-btn" onclick="openTab(event, 'coaches')">
             <i class="fa-solid fa-user-tie"></i> المدربين
         </div>
-        <div class="tab-btn" onclick="openTab('inventory')">
+        <div class="tab-btn" onclick="openTab(event, 'inventory')">
             <i class="fa-solid fa-boxes-stacked"></i> المخزن
         </div>
     </nav>
@@ -50,8 +50,8 @@
 
         <section id="store" class="tab-content">
             <div class="store-tabs">
-                <button class="primary-btn active" id="tab-products-btn" onclick="openStoreTab('store-products')">المنتجات</button>
-                <button class="primary-btn" id="tab-sales-btn" onclick="openStoreTab('store-sales')">البيع</button>
+                <button class="primary-btn active" onclick="openStoreTab(event, 'store-products')">المنتجات</button>
+                <button class="primary-btn" onclick="openStoreTab(event, 'store-sales')">البيع</button>
             </div>
 
             <div id="store-products" class="store-sub-tab active">
@@ -73,7 +73,7 @@
                 </div>
 
                 <div class="grid-container" id="productsListContainer">
-                    </div>
+                </div>
             </div>
 
             <div id="store-sales" class="store-sub-tab" style="display: none;">
