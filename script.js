@@ -9,10 +9,16 @@ function openTab(event, tabId) {
     event.currentTarget.classList.add('active');
 }
 
+let players = [];
+let playerIdCounter = 1;
+let currentCategory = '';
+
 function showPlayers(categoryName) {
+    currentCategory = categoryName;
     const playersArea = document.getElementById('players-list-area');
     playersArea.style.display = 'block';
     document.getElementById('selected-category-title').innerText = 'قائمة اللاعبين - ' + categoryName;
+    renderPlayers();
 }
 
 function openModal(modalId) {
@@ -45,6 +51,7 @@ function toggleElement(elementId) {
     }
 }
 
+// ---------------- قسم المنتجات والمبيعات ---------------- //
 let products = [];
 let productIdCounter = 1;
 
@@ -260,6 +267,7 @@ function deleteSale(id) {
     renderSalesHistory();
 }
 
+// ---------------- قسم المخزن ---------------- //
 let inventoryItems = [];
 let invIdCounter = 1;
 
@@ -337,4 +345,231 @@ function renderInventory() {
             </div>
         `;
     });
+}
+
+// ---------------- التعديلات الجديدة للمدربين واللاعبين ---------------- //
+
+// --- قسم المدربين ---
+let coaches = [];
+let coachIdCounter = 1;
+
+function saveCoach() {
+    const name = document.getElementById('coachName').value;
+    const cert = document.getElementById('coachCert').value;
+    const date = document.getElementById('coachDate').value;
+    const amount = document.getElementById('coachAmount').value;
+    const equip = document.getElementById('coachEquip').value;
+    const category = document.getElementById('coachCategory').value;
+    const editId = document.getElementById('coachEditId').value;
+
+    if (!name) return alert('يرجى إدخال اسم المدرب');
+
+    if (editId) {
+        const coach = coaches.find(c => c.id == editId);
+        coach.name = name;
+        coach.cert = cert;
+        coach.date = date;
+        coach.amount = amount;
+        coach.equip = equip;
+        coach.category = category;
+        document.getElementById('coachEditId').value = '';
+    } else {
+        coaches.push({
+            id: coachIdCounter++,
+            name: name,
+            cert: cert,
+            date: date,
+            amount: amount,
+            equip: equip,
+            category: category
+        });
+    }
+
+    // تنظيف الحقول
+    document.getElementById('coachName').value = '';
+    document.getElementById('coachCert').value = '';
+    document.getElementById('coachDate').value = '';
+    document.getElementById('coachAmount').value = '';
+    document.getElementById('coachEquip').value = '';
+    document.getElementById('coachCategory').value = '';
+    
+    closeModal('coachModal');
+    renderCoaches();
+}
+
+function renderCoaches() {
+    const container = document.getElementById('coachesListContainer');
+    container.innerHTML = '';
+
+    if (coaches.length === 0) {
+        container.innerHTML = '<p style="text-align: center; opacity: 0.7;">لا يوجد مدربين مضافين حتى الآن.</p>';
+        return;
+    }
+
+    coaches.forEach(coach => {
+        container.innerHTML += `
+            <div class="list-item">
+                <div>
+                    <h4>${coach.name}</h4>
+                    <p style="opacity: 0.8; font-size: 0.9em;">تاريخ الانضمام: ${coach.date || 'غير محدد'}</p>
+                    <p style="opacity: 0.8; font-size: 0.9em;">الفئة: ${coach.category || 'غير محدد'}</p>
+                </div>
+                <div class="card-actions">
+                    <button class="icon-btn edit-btn" onclick="editCoach(${coach.id})"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <button class="icon-btn delete-btn" onclick="askDeleteCoach(${coach.id})"><i class="fa-solid fa-trash"></i></button>
+                </div>
+            </div>
+        `;
+    });
+}
+
+function editCoach(id) {
+    const coach = coaches.find(c => c.id == id);
+    document.getElementById('coachName').value = coach.name;
+    document.getElementById('coachCert').value = coach.cert;
+    document.getElementById('coachDate').value = coach.date;
+    document.getElementById('coachAmount').value = coach.amount;
+    document.getElementById('coachEquip').value = coach.equip;
+    document.getElementById('coachCategory').value = coach.category;
+    document.getElementById('coachEditId').value = coach.id;
+    openModal('coachModal');
+}
+
+function askDeleteCoach(id) {
+    document.getElementById('deleteTargetId').value = id;
+    document.getElementById('deletePasswordInput').value = '';
+    openModal('deletePasswordModal');
+}
+
+function confirmDeleteCoach() {
+    const pass = document.getElementById('deletePasswordInput').value;
+    if (pass === '1001') {
+        const id = document.getElementById('deleteTargetId').value;
+        coaches = coaches.filter(c => c.id != id);
+        closeModal('deletePasswordModal');
+        renderCoaches();
+    } else {
+        alert('كلمة المرور خاطئة!');
+    }
+}
+
+// --- قسم اللاعبين ---
+function savePlayer() {
+    const name = document.getElementById('playerName').value;
+    const dob = document.getElementById('playerDob').value;
+    const address = document.getElementById('playerAddress').value;
+    const joinDate = document.getElementById('playerJoinDate').value;
+    const subEndDate = document.getElementById('playerSubEndDate').value;
+    const natId = document.getElementById('playerNatId').value;
+    const passport = document.getElementById('playerPassport').value;
+    const monthlyPay = document.getElementById('playerMonthlyPay').value;
+    const school = document.getElementById('playerSchool').value;
+
+    if (!name) return alert('يرجى إدخال اسم اللاعب');
+
+    players.push({
+        id: playerIdCounter++,
+        category: currentCategory,
+        name: name,
+        dob: dob,
+        address: address,
+        joinDate: joinDate,
+        subEndDate: subEndDate,
+        natId: natId,
+        passport: passport,
+        monthlyPay: monthlyPay,
+        school: school
+    });
+
+    // تنظيف الحقول
+    document.getElementById('playerName').value = '';
+    document.getElementById('playerDob').value = '';
+    document.getElementById('playerAddress').value = '';
+    document.getElementById('playerJoinDate').value = '';
+    document.getElementById('playerSubEndDate').value = '';
+    document.getElementById('playerNatId').value = '';
+    document.getElementById('playerPassport').value = '';
+    document.getElementById('playerMonthlyPay').value = '';
+    document.getElementById('playerSchool').value = '';
+
+    closeModal('playerModal');
+    renderPlayers();
+}
+
+function calculateDaysLeft(endDateStr) {
+    if (!endDateStr) return 0;
+    const endDate = new Date(endDateStr);
+    const today = new Date();
+    // تصفير الوقت لمقارنة الأيام بدقة
+    today.setHours(0,0,0,0);
+    endDate.setHours(0,0,0,0);
+    const diffTime = endDate - today;
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+}
+
+function renderPlayers() {
+    const container = document.getElementById('playersListContainer');
+    container.innerHTML = '';
+    
+    const categoryPlayers = players.filter(p => p.category === currentCategory);
+
+    if (categoryPlayers.length === 0) {
+        container.innerHTML = '<p style="text-align: center; opacity: 0.7;">لا يوجد لاعبين حالياً. اضغط على "إضافة لاعب".</p>';
+        return;
+    }
+
+    categoryPlayers.forEach(player => {
+        const daysLeft = calculateDaysLeft(player.subEndDate);
+        const isExpired = daysLeft <= 0;
+        
+        let nameHtml = player.name;
+        let statusHtml = `باقي من الاشتراك: ${daysLeft} يوم`;
+        let actionBtnHtml = '';
+
+        if (isExpired) {
+            nameHtml = `<span class="expired-name"><i class="fa-solid fa-circle-exclamation warning-icon"></i> ${player.name}</span>`;
+            statusHtml = `<span class="expired-name">الاشتراك منتهي! يجب التسديد.</span>`;
+            actionBtnHtml = `<button class="pay-btn" onclick="openPaymentModal(${player.id})">تسديد</button>`;
+        }
+
+        container.innerHTML += `
+            <div class="list-item">
+                <div>
+                    <h4>${nameHtml}</h4>
+                    <p style="opacity: 0.8; font-size: 0.9em;">${statusHtml}</p>
+                    <p style="opacity: 0.8; font-size: 0.9em;">تاريخ الانتهاء: ${player.subEndDate || 'غير محدد'}</p>
+                </div>
+                <div class="card-actions" style="align-items: center;">
+                    ${actionBtnHtml}
+                </div>
+            </div>
+        `;
+    });
+}
+
+function openPaymentModal(id) {
+    document.getElementById('payPlayerId').value = id;
+    document.getElementById('payStartDate').value = '';
+    document.getElementById('payEndDate').value = '';
+    openModal('paymentModal');
+}
+
+function savePayment() {
+    const id = document.getElementById('payPlayerId').value;
+    const startDate = document.getElementById('payStartDate').value;
+    const endDate = document.getElementById('payEndDate').value;
+
+    if (!startDate || !endDate) {
+        alert('يرجى تحديد تاريخ البدء وتاريخ الانتهاء');
+        return;
+    }
+
+    const player = players.find(p => p.id == id);
+    if (player) {
+        player.subEndDate = endDate;
+    }
+
+    closeModal('paymentModal');
+    renderPlayers();
 }
