@@ -361,40 +361,55 @@ function saveCoach() {
     const equip = document.getElementById('coachEquip').value;
     const category = document.getElementById('coachCategory').value;
     const editId = document.getElementById('coachEditId').value;
+    const imageInput = document.getElementById('coachImage');
 
     if (!name) return alert('يرجى إدخال اسم المدرب');
 
-    if (editId) {
-        const coach = coaches.find(c => c.id == editId);
-        coach.name = name;
-        coach.cert = cert;
-        coach.date = date;
-        coach.amount = amount;
-        coach.equip = equip;
-        coach.category = category;
-        document.getElementById('coachEditId').value = '';
-    } else {
-        coaches.push({
-            id: coachIdCounter++,
-            name: name,
-            cert: cert,
-            date: date,
-            amount: amount,
-            equip: equip,
-            category: category
-        });
-    }
+    const finalizeSave = (imgUrl) => {
+        if (editId) {
+            const coach = coaches.find(c => c.id == editId);
+            coach.name = name;
+            coach.cert = cert;
+            coach.date = date;
+            coach.amount = amount;
+            coach.equip = equip;
+            coach.category = category;
+            if(imgUrl) coach.image = imgUrl; 
+            document.getElementById('coachEditId').value = '';
+        } else {
+            coaches.push({
+                id: coachIdCounter++,
+                name: name,
+                cert: cert,
+                date: date,
+                amount: amount,
+                equip: equip,
+                category: category,
+                image: imgUrl
+            });
+        }
 
-    // تنظيف الحقول
-    document.getElementById('coachName').value = '';
-    document.getElementById('coachCert').value = '';
-    document.getElementById('coachDate').value = '';
-    document.getElementById('coachAmount').value = '';
-    document.getElementById('coachEquip').value = '';
-    document.getElementById('coachCategory').value = '';
-    
-    closeModal('coachModal');
-    renderCoaches();
+        document.getElementById('coachName').value = '';
+        document.getElementById('coachCert').value = '';
+        document.getElementById('coachDate').value = '';
+        document.getElementById('coachAmount').value = '';
+        document.getElementById('coachEquip').value = '';
+        document.getElementById('coachCategory').value = '';
+        document.getElementById('coachImage').value = '';
+        
+        closeModal('coachModal');
+        renderCoaches();
+    };
+
+    if (imageInput.files && imageInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            finalizeSave(e.target.result);
+        }
+        reader.readAsDataURL(imageInput.files[0]);
+    } else {
+        finalizeSave('');
+    }
 }
 
 function renderCoaches() {
@@ -407,9 +422,11 @@ function renderCoaches() {
     }
 
     coaches.forEach(coach => {
+        let imgHtml = coach.image ? `<img src="${coach.image}" class="coach-img" alt="صورة المدرب">` : `<div class="coach-img-placeholder"><i class="fa-solid fa-user"></i></div>`;
         container.innerHTML += `
-            <div class="list-item">
-                <div>
+            <div class="list-item" style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+                ${imgHtml}
+                <div style="flex: 1; min-width: 150px;">
                     <h4>${coach.name}</h4>
                     <p style="opacity: 0.8; font-size: 0.9em;">تاريخ الانضمام: ${coach.date || 'غير محدد'}</p>
                     <p style="opacity: 0.8; font-size: 0.9em;">الفئة: ${coach.category || 'غير محدد'}</p>
